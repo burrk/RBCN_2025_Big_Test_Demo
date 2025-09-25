@@ -26,8 +26,8 @@ At the end of these notes, several other techniques to reduce the number of test
    #### Our Problem
 
    * This demo has code examples inspired by issues we had in a project while trying to test software for importing lots of different products from all the different countries.
-   * You can imagine all the thousands of combinations of products, countries, treaties and comsumer protection laws that must be taken into consideration.
-   * The rules for countries can regularily change depending on changing safety concerns and political spats - and there can't be mistakes because some products will not last if tied up at borders for long.
+   * You can imagine all the thousands of combinations of products, countries, treaties and consumer protection laws that must be taken into consideration.
+   * The rules for countries can regularly change depending on changing safety concerns and political spats - and there can't be mistakes because some products will not last if tied up at borders for long.
 
    This demo is not long enough to go into very much depth, but I hope it will give you some ideas you can research further to solve your specific problems. There will also be links in these notes to help
    
@@ -39,7 +39,7 @@ At the end of these notes, several other techniques to reduce the number of test
    [data/pict_arg.pict](data/pict_arg.pict) 
    is easier to understand the relationships than looking at all the combinations in the CSV file: 
    [data/3360_tests.csv](data/3360_tests.csv)
-   * These values are different ways of configuring a hard drive in windows. Many of these combinations are not valid and could have been removed with rules. However the actual data is not really important to the demo, so the rules were left out for simplicity.
+   * These values are different ways of configuring a hard drive in windows. Many of these combinations are not valid and could have been removed with rules. However, the actual data is not really important to the demo, so the rules were left out for simplicity.
    * [PICT] was used specifically because it is easy to generate test data with, and the [DataDriver] can call it directly. However, the generated CSV files will still be used in the examples because that is what people are most accustomed to using.
    * There are 3360 exhaustive testcases, but typically smaller sub-sets will be used.
 
@@ -157,7 +157,7 @@ At the end of these notes, several other techniques to reduce the number of test
    |RBCN 2025 Big Test Demo.Tests.Demonstration.Csv Data Driver.Combination:__Span__10__Quick__FAT__2048__Off|RBCN 2025 Big Test Demo.Tests.Demonstration.Csv Data Driver.Combination:__Single__5000__Quick__FAT__4096__Off|RBCN 2025 Big Test Demo.Tests.Demonstration.Csv Data Driver.Combination:__Span__10__Slow__NTFS__512__Off|RBCN 2025 Big Test Demo.Tests.Demonstration.Csv Data Driver.Combination:__Stripe__100__Slow__NTFS__65536__On|RBCN 2025 Big Test Demo.Tests.Demonstration.Csv Data Driver.Combination:__Span__1000__Quick__FAT__32768__Off|RBCN 2025 Big Test Demo.Tests.Demonstration.Csv Data Driver.Combination:__Mirror__40000__Quick__FAT__512__On" --variable CALLER_ID:e02ed1681a0345aca64b5ff6c848a9ad --variable PABOTLIBURI:127.0.0.1:8270 --variable PABOTEXECUTIONPOOLID:0 --variable PABOTISLASTEXECUTIONINPOOL:0 --variable PABOTNUMBEROFPROCESSES:2 [...]
     ```
 
-* The [DataDriver] and [Pabot] use the command line to tell Robot which test cases to run, and Windows only supports a maximum [8191 characters on the comand line](https://learn.microsoft.com/en-us/troubleshoot/windows-client/shell-experience/command-line-string-limitation#more-information). 
+* The [DataDriver] and [Pabot] use the command line to tell Robot which test cases to run, and Windows only supports a maximum [8191 characters on the command line](https://learn.microsoft.com/en-us/troubleshoot/windows-client/shell-experience/command-line-string-limitation#more-information). 
 * You could create a custom [DataDriver] which passes the testcases to [Pabot] using a different mechanism (even while tests are running), but these are not documented and we will limit ourselves to what can be done in Robot code
 
 ## 3. Reduce size with...
@@ -188,7 +188,7 @@ At the end of these notes, several other techniques to reduce the number of test
       * BUT not good enough, and not great if you have many robot suites to run.
 
 ### 2. Shorten test name:
-   * Move the descrptive test name to automatically generated test documentation (see [lines.robot](tests/demonstration/lines.robot))
+   * Move the descriptive test name to automatically generated test documentation (see [lines.robot](tests/demonstration/lines.robot))
      * AND add line numbers (see the [281_lines.csv](data/281_lines.csv) data file vs. [281_tests.csv](data/281_tests.csv))
      * Reduces test names from: `RBCN 2025 Big Test Demo.Tests.Demonstration.Csv Data Driver.Combination:__Mirror__10__Quick__FAT32__1024__On`<br>
        to: `Lines.T1`
@@ -223,11 +223,11 @@ At the end of these notes, several other techniques to reduce the number of test
 
 ## 4. Increase processes by running on more machines!
    If you cannot run enough processes on one machine to make the suite
-   run, then you can break the test suite accross multiple machines!
+   run, then you can break the test suite across multiple machines!
 
 ### a. Break data into smaller files manually
    That can be a pain and takes away the advantage of using models to
-   easily regenerate TCs when requirements change, or simply to further optomize
+   easily regenerate TCs when requirements change, or simply to further optimize
    the number of test cases. 
    
 ### b. [Pabot] has `--shard [SHARD]/[SHARD COUNT]` to break up test suites
@@ -246,7 +246,7 @@ At the end of these notes, several other techniques to reduce the number of test
    ```
    Robot Framework remote server at 127.0.0.1:8270 started.
    Storing .pabotsuitenames file
-   Not enought items (1) for shard cound (5).
+   Not enough items (1) for shard count (5).
    Stopping PabotLib process
    Robot Framework remote server at 127.0.0.1:8270 stopped.
    PabotLib process stopped
@@ -266,7 +266,7 @@ At the end of these notes, several other techniques to reduce the number of test
    https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#example-select-every-xth-test
    <br>(Please look there for a proper explanation of how it works.)
 
-   Again running this only requires a change to the command line, and you now need to pass values for which slice (i.e.shard) out of the total number of slices you are running appended to the Python file's name. 
+   Again, running this only requires a change to the command line, and you now need to pass values for which slice (i.e. shard) out of the total number of slices you are running appended to the Python file's name. 
    ```shell
    pabot --processes 2 --testlevelsplit --prerunmodifier .\tests\demonstration\SelectEveryXthTest.py:5:0 -d results -v TESTFILE:data\56_tests.csv  -s csv_data_driver .
    ```
@@ -283,7 +283,7 @@ At the end of these notes, several other techniques to reduce the number of test
 
    Like before, the Pre-run modifier ran before the [DataDriver] had generated the test suite.
 
-   **Note:** Using a [Listener] instead of a [Pre-run modifier] might work becuase 
+   **Note:** Using a [Listener] instead of a [Pre-run modifier] might work because 
    it runs once the test suite is being executed. There may even be other ways 
    to use a Pre-run modifier - but these are complex and I did not have a 
    chance to try them out.
@@ -333,9 +333,9 @@ The reason the code is simple is because it is not really a custom reader, but
 CSV reader: 
 [my_slice_reader.py](tests/demonstration/my_slice_reader.py)
 
-Again the Robot file needs to be changed, but only the configuration of the 
+Again, the Robot file needs to be changed, but only the configuration of the 
 [DataDriver] library in:
-[custom_reader.robot](tests/demonstration/ccustom_reader.robot)
+[custom_reader.robot](tests/demonstration/custom_reader.robot)
 
 ```shell
 pabot --processes 2 --testlevelsplit -d results -v SLICE:5 -v NUM_SLICES:5 -v TESTFILE:data\56_tests.csv  -s custom_reader .
@@ -375,13 +375,13 @@ But do you really need to test all the tests, all the time?
    * [Equivalence classes](https://www.professionalqa.com/equivalence-class-testing):
      * If all the values in a set are functionally equivalent, why test all of them?
      * Values can be randomly chosen from those sets to find surprise subsets...
-     * or use with [Operational Profiles](https://www.lambdatest.com/learning-hub/operational-testing) , 
+     * Or use with [Operational Profiles](https://www.lambdatest.com/learning-hub/operational-testing), 
        * so most tests test the values customers use the most 
        * because that is where the customers will find bugs!
    * [Boundary testing](https://www.ministryoftesting.com/software-testing-glossary/boundary-testing):
      * Only test values at the boundaries of the classes
        * For example: 0 & +/-1, 
-       * especially if you are told there is no "-1" value 
+       * Especially if you are told there is no "-1" value 
 
    ### b. [Combinatorial tests](http://pairwise.org/)
    * e.g. Pair-wise, i.e. all combinations between 2 variables can create a small set of really complicated tests
@@ -404,9 +404,9 @@ But do you really need to test all the tests, all the time?
      * Is the code brand new, or has had a lot of changes?
      * Has it had a lot of problems in the past?
      * Is it very complicated?
-     * Does it depends on code like the above?
+     * Does it depend on code like the above?
    
-   * How likely would a user actually do that scenerio? (Operational Profiles again)
+   * How likely would a user actually do that scenario? (Operational Profiles again)
 
    * Is the functionality already tested in other tests?
      * Use dynamic metrics like code coverage as a guide... 
@@ -419,7 +419,7 @@ But do you really need to test all the tests, all the time?
 ## 6. Conclusion 
 
 **I** think these kinds of problems are fun to solve, and tests with data 
-explosion are the best fit for automation! If any of you have doubts, or 
+explosions are the best fit for automation! If any of you have doubts, or 
 questions, I would be happy to answer them!
 
 <br><img src="docs/Robocon_Canada.png" align="left">
