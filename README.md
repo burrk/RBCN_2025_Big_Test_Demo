@@ -5,6 +5,8 @@ HELP! My Test Suite is too BIG for my PABOT!
 
 This presentation gives examples of some problems and possible solutions.
 
+[![Pabot presentation at robocon.io 2025](http://img.youtube.com/vi/6TgrbAASzqQ/0.jpg)](https://youtu.be/6TgrbAASzqQ "Pabot presentation at robocon.io 2025")
+
 Every so often someone in [Slack](https://robotframework.slack.com/) or the [Forum](http://forum.robotframework.org/) asks how to run extremely large test suites in parallel using [Pabot] (a parallel test runner for RF). This demo will demonstrate problems we have run into and solutions using [Pabot] and the [DataDriver] (extension to RF to run data driven tests from data files).
 
 The demo is not intended to complain about [Pabot] or the [DataDriver], but to mention some of the challenges with large test suites, and hopefully inspire people to create even better tests using these tools!
